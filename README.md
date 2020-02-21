@@ -2,7 +2,7 @@
 Kleine Spielerei um Usern das Drucken auf meinem Bondrucker zu ermöglichen.
 
 ## Abhängigkeiten
-[pr0gramm-apiCall](https://github.com/RundesBalli/pr0gramm-apiCall)
+[pr0gramm-apiCall](https://github.com/RundesBalli/pr0gramm-apiCall)  
 [escpos-php-driver](https://github.com/RundesBalli/escpos-php-driver)
 
 ## Einrichtung
