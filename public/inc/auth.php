@@ -92,7 +92,7 @@ if(isset($_GET['error'])) {
        * Neuanlage des Users, sofern nicht vorhanden.
        */
       mysqli_query($dbl, "INSERT INTO `users` (`username`) VALUES ('".$username."')") OR DIE(MYSQLI_ERROR($dbl));
-      $userId = mysql_insert_id($dbl);
+      $userId = mysqli_insert_id($dbl);
     } else {
       /**
        * Abfrage der User-ID, wenn schon vorhanden.
