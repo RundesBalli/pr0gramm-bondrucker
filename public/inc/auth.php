@@ -79,10 +79,20 @@ if(isset($_GET['error'])) {
     if(preg_match("/^[0-9a-f]{32}$/i", trim($response['accessToken']), $match) === 1) {
       $token = $match[0];
       /**
-       * Mit dem AuthToken wird dann der Username angefragt.
+       * Mit dem AuthToken wird dann der Username angefragt, entschärft und validiert.
+       * 
+       * Hinweis zum Regex: Es gibt noch ganz alte User, die ein Binde- oder Unterstrich im Namen haben. Heutzutage ist es /[0-9a-z]{2,32}/i
        */
-      $username = defuse(apiCall("https://pr0gramm.com/api/user/name", NULL, $token)['name']);
-      
+      if(preg_match("/^[0-9a-z-_]{2,32}$/i", defuse(apiCall("https://pr0gramm.com/api/user/name", NULL, $token)['name']), $match) === 1) {
+        $username = $match[0];
+      } else {
+        /**
+         * Die pr0gramm API sollte keinen ungültigen Usernamen zurückgeben, deshalb wird das hier wohl nie passieren.
+         * Nur für den Fall der Fälle.
+         */
+        die("Username ungültig.");
+      }
+
       /**
        * Prüfung ob der User sich schon einmal angemeldet hat.
        */
@@ -113,7 +123,7 @@ if(isset($_GET['error'])) {
        */
       $content.= "<div class='successbox center'>Login erfolgreich.</div>".PHP_EOL;
       $content.= "<div class='row center'>".PHP_EOL.
-      "<div class='col-x-12 col-s-12 col-m-12 col-l-12 col-xl-12 hover'>Hallo ".$username."! <a href='/print'>Weiter zum Druck</a></div>".PHP_EOL.
+      "<div class='col-x-12 col-s-12 col-m-12 col-l-12 col-xl-12 hover'>Hallo ".output($username)."! <a href='/print'>Weiter zum Druck</a></div>".PHP_EOL.
       "</div>".PHP_EOL;
       $content.= "<div class='spacer-l'></div>".PHP_EOL;
     } else {

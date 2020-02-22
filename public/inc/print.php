@@ -17,7 +17,7 @@ $content.= "<h1 class='center'>Drucken</h1>".PHP_EOL;
 require_once('sessioncheck.php');
 
 $content.= "<div class='row center'>".PHP_EOL.
-"<div class='col-x-12 col-s-12 col-m-12 col-l-12 col-xl-12'>Hallo ".$username."! <span class='smaller'>(<a href='/logout'>Ausloggen</a>)</span></div>".PHP_EOL.
+"<div class='col-x-12 col-s-12 col-m-12 col-l-12 col-xl-12'>Hallo ".output($username)."! <span class='smaller'>(<a href='/logout'>Ausloggen</a>)</span></div>".PHP_EOL.
 "</div>".PHP_EOL;
 $content.= "<div class='spacer-m'></div>".PHP_EOL;
 
