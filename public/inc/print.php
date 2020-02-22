@@ -61,7 +61,12 @@ if($lastPrinted > (time()-3600)) {
     $text = preg_split('/[\r\n]+/', trim($_POST['text']));
     $textDb = array();
     foreach($text as $key => $val) {
-      $textDb[] = wordwrap(trim($val), 48, "\n");
+      /**
+       * Alle ASCII-Zeichen zwischen 0 und 31, sowie 127 herausfiltern.
+       * https://stackoverflow.com/a/1176923
+       */
+      $string = preg_replace('/[\x00-\x1F\x7F]/u', '', trim($val));
+      $textDb[] = wordwrap($string, 48, "\n");
     }
     $text = defuse(implode("\n", array_slice($textDb, 0, 20)));
     if(empty($text)) {
